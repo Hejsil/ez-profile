@@ -4,11 +4,11 @@ pub fn build(b: *std.Build) void {
     const optimize = b.standardOptimizeOption(.{});
     const target = b.standardTargetOptions(.{});
 
-    const module = b.addModule("ez-profile", .{ .root_source_file = .{ .path = "ez-profile.zig" } });
+    const module = b.addModule("ez-profile", .{ .root_source_file = b.path("ez-profile.zig") });
 
     const test_step = b.step("test", "Run all tests in all modes.");
     const main_tests = b.addTest(.{
-        .root_source_file = .{ .path = "ez-profile.zig" },
+        .root_source_file = b.path("ez-profile.zig"),
         .target = target,
         .optimize = optimize,
     });
@@ -16,7 +16,7 @@ pub fn build(b: *std.Build) void {
 
     const example_tests = b.addExecutable(.{
         .name = "example",
-        .root_source_file = .{ .path = "example/example.zig" },
+        .root_source_file = b.path("example/example.zig"),
         .target = target,
         .optimize = optimize,
     });
